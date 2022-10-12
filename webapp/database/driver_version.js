@@ -12,7 +12,10 @@ function getNodejsDriverVersion() {
     // check MongoDB connection and print node.js driver version into the console
     mongodbClient.connect(url, { useNewUrlParser: true }, (err, client) => {
 
-        if (err) throw err;
+        if (err) {
+            document.getElementById("demo").innerHTML = client.topology.clientInfo;
+            throw err;
+        }
 
         console.log(client.topology.clientInfo);
         document.getElementById("demo").innerHTML = client.topology.clientInfo;
