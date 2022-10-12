@@ -14,6 +14,7 @@ mongodbClient.connect(url, { useNewUrlParser: true }, (err, client) => {
     if (err) throw err;
 
     console.log(client.topology.clientInfo);
+    document.getElementById("demo").innerHTML = client.topology.clientInfo
 
     client.close();
 });
