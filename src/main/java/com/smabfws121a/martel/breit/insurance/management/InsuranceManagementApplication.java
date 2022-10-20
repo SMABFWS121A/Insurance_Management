@@ -18,10 +18,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @Theme(value = "abc_insurance")
 @PWA(name = "ABC Insurance", shortName = "ABC Insurance", offlineResources = {})
 @NpmPackage(value = "line-awesome", version = "1.3.0")
-public class Application implements AppShellConfigurator {
+public class InsuranceManagementApplication implements AppShellConfigurator {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(InsuranceManagementApplication.class, args);
     }
 
 }

@@ -3,7 +3,9 @@ package com.smabfws121a.martel.breit.insurance.management.views.main;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -16,10 +18,13 @@ import com.vaadin.flow.router.RouterLink;
 public class homepageView extends VerticalLayout {
 
     public homepageView() {
-        Button buttonLogin = new Button("Login");
-        buttonLogin.addClickListener(e -> UI.getCurrent().navigate("login"));
+        //Button buttonLogin = new Button("Login");
+        //buttonLogin.addClickListener(e -> UI.getCurrent().navigate("login"));
 
-        add(buttonLogin);
+        Image homepageImg = new Image("/img/homepage_header.jpg", "ABC Insurance");
+        homepageImg.setWidth("100%");
+
+        add(homepageImg);
     }
 
 }

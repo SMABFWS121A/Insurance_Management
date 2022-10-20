@@ -9,7 +9,7 @@ import com.vaadin.flow.router.Route;
 
 //@Route("login-overlay-internationalization")
 @PageTitle("Login | ABC Insurance")
-@Route(value = "login")
+@Route(value = "login",layout = layout.class)
 public class loginView extends Div {
 
     public loginView() {
