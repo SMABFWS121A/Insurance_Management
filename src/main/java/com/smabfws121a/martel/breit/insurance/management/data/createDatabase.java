@@ -1,29 +1,66 @@
 package com.smabfws121a.martel.breit.insurance.management.data;
 
+import com.vaadin.flow.component.notification.Notification;
+
 import java.sql.*;
 
-public class createDatabase {
+public class createDatabase extends connectDatabase {
 
-    public createDatabase() throws SQLException {
+    private static createDatabase connection;
 
-        // JDBC driver name and database URL
-        final String jdbc_driver = "org.mariadb.jdbc.Driver";
-        final String db_url = "jdbc:mariadb://130.61.73.74:27017";
+    public createDatabase(Connection connectDB) throws SQLException, ClassNotFoundException {
+        // initiate db connection
+        connectDatabase dbConnect = getConnectDatabase();
+        Connection db = getConnection();
+        // create database if it doesn't exist
+        if (!checkDB(getDbname())) {
+            String sql = "CREATE DATABASE abcinsurance";
+            Statement sqlStatement = db.createStatement();
 
-        //  Database credentials
-        final String db_user = "abcinsurance";
-        final String db_pass = "REDACTED";
-        
-        // create connection
-        Connection abcinsurance = null;
+            sqlStatement.execute(sql);
+            Notification.show("Database created successfully...");
+        } else {
+            Notification.show("Database already exists...");
+        }
+    }
 
-        // connect to database
+    /** check if database exists
+     * @param dbName : name of database
+     * @return : database with the given param dbName exists (true) or doesn't exist (false)
+     */
+    private boolean checkDB(String dbName) {
+
         try {
+            // open up connection
+            Notification.show("Creating database connection...");
+            Connection db = getConnection();
 
-            abcinsurance = DriverManager.getConnection(db_url, db_user, db_pass);
+            // set up results
+            ResultSet databases = db.getMetaData().getCatalogs();
 
-        }  catch (SQLException ex) { ex.printStackTrace(); }
+            //iterate through results and check for the desired db name
+            while (databases.next()) {
+                String databaseName = databases.getString(1);
+                if (databaseName.equals(dbName)) {
+                    // database exists
+                    return true;
+                }
+            }
+        }
+        // exception handling
+        catch (Exception e) {
+            Notification.show("Error while creating database...");
+            e.printStackTrace();
+        }
+        // database doesn't exist
+        return false;
+    }
 
+    protected createDatabase setCreateDatabase() throws ClassNotFoundException, SQLException {
+        if (connection == null) {
+            connection = new createDatabase(getConnection());
+        }
+        return connection;
     }
 
 }
