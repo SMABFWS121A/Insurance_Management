@@ -10,9 +10,10 @@
     </parent>
     <groupId>com.smabfws121a.martel.breit</groupId>
     <artifactId>insurance.management</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>Insurance Management</name>
     <description>Software for Vehicle-Insurance companies</description>
+    <packaging>war</packaging>
     <properties>
         <java.version>17</java.version>
         <vaadin.version>23.2.5</vaadin.version>
