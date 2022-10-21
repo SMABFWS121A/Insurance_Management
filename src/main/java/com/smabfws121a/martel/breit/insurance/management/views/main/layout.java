@@ -1,61 +1,140 @@
 package com.smabfws121a.martel.breit.insurance.management.views.main;
 
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.HighlightConditions;
+import com.vaadin.flow.component.tabs.Tab;
+import com.vaadin.flow.component.tabs.Tabs;
+import com.vaadin.flow.component.tabs.TabsVariant;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLink;
+
+import java.util.Optional;
 
 // layout extends from AppLayout (Vaadin)
 public class layout extends AppLayout {
 
+    private final Tabs menu;
+    private H1 viewTitle;
+
     // create general static things to show on every view
     public layout() {
 
-        createHeader();
-        createDrawer();
+        // Use the drawer for the menu
+        setPrimarySection(Section.DRAWER);
+
+        // Make the nav bar a header
+        addToNavbar(true, createHeaderContent());
+
+        // Put the menu in the drawer
+        menu = createMenu();
+        addToDrawer(createDrawerContent(menu));
 
     }
 
-    // adds a header to every page
-    private void createHeader() {
+    private Component createHeaderContent() {
+        HorizontalLayout layout = new HorizontalLayout();
 
-        // shows the company logo in the header
-        //Image headerLogo = new Image("/img/abc_insurance.png", "ABC Insurance");
-        //headerLogo.setHeight("60px");
-        H1 headerLogoText = new H1("ABC Insurance");
-        headerLogoText.addClassNames("text-l", "m-m");
+        // Configure styling for the header
+        layout.setId("header");
+        layout.getThemeList().set("dark", true);
+        layout.setWidthFull();
+        layout.setSpacing(false);
+        layout.setAlignItems(FlexComponent.Alignment.CENTER);
 
-        // create website head
-        HorizontalLayout header = new HorizontalLayout(new DrawerToggle(), headerLogoText);
+        // Have the drawer toggle button on the left
+        layout.add(new DrawerToggle());
 
-        // set header alignment and style
-        header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
-        header.setWidth("100%");
-        header.addClassNames("py-0", "px-m");
-        header.setWidth("100%");
+        // Placeholder for the title of the current view.
+        // The title will be set after navigation.
+        viewTitle = new H1();
+        viewTitle.addClassNames("text-l", "m-m");
+        layout.add(viewTitle);
 
-        //add head to navbar
-        addToNavbar(header);
+        // A user icon
+        //layout.add(new Image("images/user.svg", "Avatar"));
 
+        return layout;
     }
 
-    // adds a drawer to every page
-    private void createDrawer() {
+    private Component createDrawerContent(Tabs menu) {
+        VerticalLayout layout = new VerticalLayout();
 
-        //homepage
-        RouterLink homepageLink = new RouterLink("Startseite", homepageView.class);
-        homepageLink.setHighlightCondition(HighlightConditions.sameLocation());
+        // Configure styling for the drawer
+        layout.setSizeFull();
+        layout.setPadding(false);
+        layout.setSpacing(false);
+        layout.getThemeList().set("spacing-s", true);
+        layout.setAlignItems(FlexComponent.Alignment.STRETCH);
 
-        //login
-        RouterLink loginLink = new RouterLink("Login", loginView.class);
-        homepageLink.setHighlightCondition(HighlightConditions.sameLocation());
+        // create drawer header
+        //company logo
+        Image companyImg = new Image("/img/abc_insurance_logo.png", "ABC Insurance");
+        companyImg.setWidth("80px");
+        // company name
+        H1 company = new H1("ABC Insurance");
+        company.addClassNames("text-l", "m-m");
 
-        addToDrawer(new VerticalLayout(homepageLink, loginLink));
+        // Have a drawer header with an application logo
+        HorizontalLayout logoLayout = new HorizontalLayout();
+        logoLayout.setId("logo");
+        logoLayout.setAlignItems(FlexComponent.Alignment.CENTER);
+        logoLayout.add(companyImg);
+        logoLayout.add(company);
+
+        // Display the logo and the menu in the drawer
+        layout.add(logoLayout, menu);
+        return layout;
+    }
+
+    private Tabs createMenu() {
+        final Tabs tabs = new Tabs();
+        tabs.setOrientation(Tabs.Orientation.VERTICAL);
+        tabs.addThemeVariants(TabsVariant.LUMO_MINIMAL);
+        tabs.setId("tabs");
+        tabs.add(createMenuItems());
+        return tabs;
+    }
+
+    private Component[] createMenuItems() {
+        return new Tab[] { createTab("Login", loginView.class),
+                createTab("Startseite", homepageView.class) };
+    }
+
+    private static Tab createTab(String text,
+                                 Class<? extends Component> navigationTarget) {
+        final Tab tab = new Tab();
+        tab.add(new RouterLink(text, navigationTarget));
+        ComponentUtil.setData(tab, Class.class, navigationTarget);
+        return tab;
+    }
+
+    @Override
+    protected void afterNavigation() {
+        super.afterNavigation();
+
+        // Select the tab corresponding to currently shown view
+        getTabForComponent(getContent()).ifPresent(menu::setSelectedTab);
+
+        // Set the view title in the header
+        viewTitle.setText(getCurrentPageTitle());
+    }
+
+    private Optional<Tab> getTabForComponent(Component component) {
+        return menu.getChildren()
+                .filter(tab -> ComponentUtil.getData(tab, Class.class)
+                        .equals(component.getClass()))
+                .findFirst().map(Tab.class::cast);
+    }
+
+    private String getCurrentPageTitle() {
+        return getContent().getClass().getAnnotation(PageTitle.class).value();
     }
 
 }

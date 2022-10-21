@@ -14,10 +14,6 @@ public class loginView extends Div {
 
     public loginView() {
 
-        // ToDo: not showing up
-        Button buttonBack = new Button("Zurück zur Startseite");
-        buttonBack.addClickListener(e -> UI.getCurrent().navigate(""));
-
         LoginOverlay loginOverlay = new LoginOverlay();
         loginOverlay.setTitle("ABC Insurance");
         loginOverlay.setDescription("Ihr Versicherer!");
@@ -25,5 +21,6 @@ public class loginView extends Div {
         loginOverlay.setOpened(true);
         loginOverlay.getElement().setAttribute("no-autofocus", "");
     }
+
 
 }
