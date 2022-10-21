@@ -10,7 +10,7 @@ public class connector {
 
     //  Database credentials
     private static final String dbuser = "abcinsurance";
-    private static final String dbpass = "v*yC]/mDdXSSD1Er";
+    private static final String dbpass = "REDACTED";
 
     protected String getJdbcdriver() {
         return jdbcdriver;
