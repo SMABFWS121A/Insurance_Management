@@ -13,15 +13,15 @@ public class createDatabase extends connectDatabase {
         connectDatabase dbConnect = getConnectDatabase();
         Connection db = getConnection();
         // create database if it doesn't exist
-        if (!checkDB(getDbname())) {
-            String sql = "CREATE DATABASE abcinsurance";
-            Statement sqlStatement = db.createStatement();
+        //if (!checkDB(getDbname())) {
+        //    String sql = "CREATE DATABASE abcinsurance";
+        //    Statement sqlStatement = db.createStatement();
 
-            sqlStatement.execute(sql);
-            Notification.show("Database created successfully...");
-        } else {
-            Notification.show("Database already exists...");
-        }
+        //    sqlStatement.execute(sql);
+        //    Notification.show("Database created successfully...");
+        //} else {
+        //    Notification.show("Database already exists...");
+        //}
     }
 
     /** check if database exists

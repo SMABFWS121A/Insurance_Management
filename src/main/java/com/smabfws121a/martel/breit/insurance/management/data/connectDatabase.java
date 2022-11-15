@@ -1,13 +1,9 @@
 package com.smabfws121a.martel.breit.insurance.management.data;
 
-
 import com.vaadin.flow.component.notification.Notification;
+import java.sql.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
-public class connectDatabase extends connector {
+public class connectDatabase {
 
     private Connection db;
     private static connectDatabase connection;
@@ -23,10 +19,10 @@ public class connectDatabase extends connector {
         Notification.show("Trying database connection...");
 
         // check if desired JDBC driver exists
-        Class.forName(getJdbcdriver());
+        //Class.forName(getJdbcdriver());
         // create connector
-        db = DriverManager.getConnection(getDburl(), getDbuser(), getDbpass());
-        setConnectDatabase();
+        //db = DriverManager.getConnection(getDburl() + '/' + getDbname(), getDbuser(), getDbpass());
+        //setConnectDatabase();
     }
 
     public static connectDatabase setConnectDatabase() throws ClassNotFoundException, SQLException {

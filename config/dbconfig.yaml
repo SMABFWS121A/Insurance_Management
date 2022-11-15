@@ -1,0 +1,5 @@
+DBDRIVER: "org.mariadb.jdbc.Driver"
+DBURL: "jdbc:mariadb://130.61.73.74:27017"
+DBNAME: "abcinsurance"
+DBUSER: "abcinsurance"
+DBPASS: "IUilMjD]fdc7C@Pr"
