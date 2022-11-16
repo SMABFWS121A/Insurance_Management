@@ -19,7 +19,6 @@ public class Connector {
         InputStream inputStream = new FileInputStream("config" + File.separator + "dbconfig.yaml");
         Yaml yaml = new Yaml();
         Map<String, String> data = yaml.load(inputStream);
-        System.out.println(data);
 
         // map YAML variables to object
         this.jdbcdriver = data.get("DBDRIVER");
@@ -29,23 +28,23 @@ public class Connector {
         this.dbpass = data.get("DBPASS");
     }
 
-    protected String getJdbcdriver() {
+    protected String getJDBCdriver() {
         return this.jdbcdriver;
     }
 
-    protected String getDburl() {
+    protected String getDBurl() {
         return this.dburl;
     }
 
-    protected String getDbname() {
+    protected String getDBname() {
         return this.dbname;
     }
 
-    protected String getDbuser() {
+    protected String getDBuser() {
         return this.dbuser;
     }
 
-    protected String getDbpass() {
+    protected String getDBpass() {
         return this.dbpass;
     }
 }
