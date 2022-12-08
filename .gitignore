@@ -1,8 +1,10 @@
+## Generic ##
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+/config/dbconfig.yaml
 
 ### STS ###
 .apt_generated
@@ -12,7 +14,6 @@ target/
 .settings
 .springBeans
 .sts4-cache
-/config/dbconfig.yaml
 
 ### IntelliJ IDEA ###
 .idea
