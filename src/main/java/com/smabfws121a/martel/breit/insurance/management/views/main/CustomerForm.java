@@ -1,7 +1,7 @@
 package com.smabfws121a.martel.breit.insurance.management.views.main;
 
-import com.smabfws121a.martel.breit.insurance.management.data.classes.Fahrzeug;
-import com.smabfws121a.martel.breit.insurance.management.data.classes.Kunde;
+import com.smabfws121a.martel.breit.insurance.management.data.classes.Vehicle;
+import com.smabfws121a.martel.breit.insurance.management.data.classes.Customer;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
@@ -20,30 +20,30 @@ import java.util.List;
 
 public class CustomerForm extends FormLayout {
 
-    Binder<Kunde> binder = new BeanValidationBinder<>(Kunde.class);
+    Binder<Customer> binder = new BeanValidationBinder<>(Customer.class);
     TextField firstName = new TextField("Vorname");
     TextField lastName = new TextField("Nachname");
     TextField strasse = new TextField("Straße");
     TextField hausnr = new TextField("Hausnummer");
     TextField plz = new TextField("PLZ");
     TextField ort = new TextField("Ort");
-    ComboBox<Fahrzeug> vehicle = new ComboBox<>("Fahrzeug");
+    ComboBox<Vehicle> vehicle = new ComboBox<>("Vehicle");
 
     Button save = new Button("Speichern");
     Button delete = new Button("Löschen");
     Button close = new Button("Abbrechen");
-    private Kunde customer;
+    private Customer customer;
 
-    public CustomerForm(List<Fahrzeug> vehicles) {
+    public CustomerForm(List<Vehicle> vehicles) {
         addClassName("contact-form");
         binder.bindInstanceFields(this);
 
         vehicle.setItems(vehicles);
-        vehicle.setItemLabelGenerator(Fahrzeug::getBezeichnung);
+        vehicle.setItemLabelGenerator(Vehicle::getBezeichnung);
         add(firstName, lastName, strasse, hausnr, plz, ort, createButtonsLayout());
     }
 
-    public void setCustomer(Kunde customer) {
+    public void setCustomer(Customer customer) {
         this.customer = customer;
         binder.readBean(customer);
     }
@@ -74,26 +74,26 @@ public class CustomerForm extends FormLayout {
 
     // Events
     public static abstract class ContactFormEvent extends ComponentEvent<CustomerForm> {
-        private Kunde customer;
+        private Customer customer;
 
-        protected ContactFormEvent(CustomerForm source, Kunde customer) {
+        protected ContactFormEvent(CustomerForm source, Customer customer) {
             super(source, false);
             this.customer = customer;
         }
 
-        public Kunde getCustomer() {
+        public Customer getCustomer() {
             return customer;
         }
     }
 
     public static class SaveEvent extends ContactFormEvent {
-        SaveEvent(CustomerForm source, Kunde customer) {
+        SaveEvent(CustomerForm source, Customer customer) {
             super(source, customer);
         }
     }
 
     public static class DeleteEvent extends ContactFormEvent {
-        DeleteEvent(CustomerForm source, Kunde customer) {
+        DeleteEvent(CustomerForm source, Customer customer) {
             super(source, customer);
         }
 

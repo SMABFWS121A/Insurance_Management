@@ -1,6 +1,7 @@
 package com.smabfws121a.martel.breit.insurance.management.data.classes;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import net.bytebuddy.dynamic.scaffold.MethodGraph;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -9,20 +10,26 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Kunde extends AbstractEntity {
+public class Customer extends AbstractEntity {
 
-    @NotEmpty private String vorname;
-    @NotEmpty private String nachname;
-    @NotEmpty private String strasse;
-    @NotEmpty private String hausnr;
-    @NotEmpty private int plz;
-    @NotEmpty private String ort;
+    @NotEmpty
+    private String vorname;
+    @NotEmpty
+    private String nachname;
+    @NotEmpty
+    private String strasse;
+    @NotEmpty
+    private String hausnr;
+    @NotEmpty
+    private int plz;
+    @NotEmpty
+    private String ort;
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
     @NotNull
     @JsonIgnoreProperties({"employees"})
-    private Fahrzeug vehicle;
+    private Vehicle vehicle;
 
     public String getVorname() {
         return vorname;
@@ -72,11 +79,11 @@ public class Kunde extends AbstractEntity {
         this.ort = ort;
     }
 
-    public Fahrzeug getVehicle() {
+    public Vehicle getVehicle() {
         return vehicle;
     }
 
-    public void setVehicle(Fahrzeug vehicle) {
+    public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
     }
 

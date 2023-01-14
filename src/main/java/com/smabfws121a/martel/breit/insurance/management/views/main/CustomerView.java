@@ -1,10 +1,8 @@
 package com.smabfws121a.martel.breit.insurance.management.views.main;
 
-import com.smabfws121a.martel.breit.insurance.management.data.classes.Kunde;
+import com.smabfws121a.martel.breit.insurance.management.data.classes.Customer;
 import com.smabfws121a.martel.breit.insurance.management.data.service.SqlService;
-import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -14,12 +12,10 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import java.util.Collection;
-
 @PageTitle("Kunden | ABC Insurance")
 @Route(value = "Kunden", layout = Layout.class)
 public class CustomerView extends VerticalLayout {
-    Grid<Kunde> grid = new Grid<>(Kunde.class);
+    Grid<Customer> grid = new Grid<>(Customer.class);
     TextField filterText = new TextField();
     CustomerForm form;
     SqlService service;
@@ -77,13 +73,13 @@ public class CustomerView extends VerticalLayout {
         grid.addClassNames("customer-grid");
         grid.setSizeFull();
         grid.setColumns("vorname", "nachname", "strasse", "hausnr", "plz", "ort");
-        grid.addColumn(customer -> customer.getVehicleName()).setHeader("Fahrzeug");
+        grid.addColumn(customer -> customer.getVehicleName()).setHeader("Vehicle");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
         grid.asSingleSelect().addValueChangeListener(e -> editCustomer(e.getValue()));
     }
 
-    private void editCustomer(Kunde customer) {
+    private void editCustomer(Customer customer) {
         if (customer == null) {
             closeEditor();
         } else {
@@ -109,7 +105,7 @@ public class CustomerView extends VerticalLayout {
 
     private void addCustomer() {
         grid.asSingleSelect().clear();
-        editCustomer(new Kunde());
+        editCustomer(new Customer());
     }
 
     private void updateList() {

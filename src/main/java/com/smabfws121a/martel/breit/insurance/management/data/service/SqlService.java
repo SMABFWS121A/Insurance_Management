@@ -1,7 +1,7 @@
 package com.smabfws121a.martel.breit.insurance.management.data.service;
 
-import com.smabfws121a.martel.breit.insurance.management.data.classes.Fahrzeug;
-import com.smabfws121a.martel.breit.insurance.management.data.classes.Kunde;
+import com.smabfws121a.martel.breit.insurance.management.data.classes.Vehicle;
+import com.smabfws121a.martel.breit.insurance.management.data.classes.Customer;
 import com.smabfws121a.martel.breit.insurance.management.data.repository.CustomerRepository;
 import com.smabfws121a.martel.breit.insurance.management.data.repository.VehicleRepository;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class SqlService {
         this.vehicleRepository = vehicleRepository;
     }
 
-    public List<Kunde> findAllCustomers(String filter) {
+    public List<Customer> findAllCustomers(String filter) {
         if (filter == null || filter.isEmpty()) {
             return customerRepository.findAll();
         } else {
@@ -31,11 +31,11 @@ public class SqlService {
         return customerRepository.count();
     }
 
-    public void deleteCustomer(Kunde customer) {
+    public void deleteCustomer(Customer customer) {
         customerRepository.delete(customer);
     }
 
-    public void saveCustomer(Kunde customer) {
+    public void saveCustomer(Customer customer) {
         if (customer == null) {
             System.err.println("Customer is null.");
             return;
@@ -43,7 +43,7 @@ public class SqlService {
         customerRepository.save(customer);
     }
 
-    public List<Fahrzeug> findAllVehicles() {
+    public List<Vehicle> findAllVehicles() {
         return vehicleRepository.findAll();
     }
 
