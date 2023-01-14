@@ -1,6 +1,8 @@
 package com.smabfws121a.martel.breit.insurance.management;
 
-import com.smabfws121a.martel.breit.insurance.management.data.ConnectDatabase;
+//import com.smabfws121a.martel.breit.insurance.management.data.ConnectDatabase;
+import com.smabfws121a.martel.breit.insurance.management.classes.Benutzer;
+import com.smabfws121a.martel.breit.insurance.management.data.SQLWorker;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.page.AppShellConfigurator;
@@ -32,6 +34,12 @@ public class InsuranceManagementApplication implements AppShellConfigurator {
         SpringApplication.run(InsuranceManagementApplication.class, args);
 
         // create connection to database
-        new ConnectDatabase();
+//        new ConnectDatabase();
+
+        // create SQLWorker
+        SQLWorker sql = new SQLWorker();
+        Benutzer user = new Benutzer("Max Mustermann", "passwort", "Kunde");
+
+//        sql.writeUser(user);
     }
 }

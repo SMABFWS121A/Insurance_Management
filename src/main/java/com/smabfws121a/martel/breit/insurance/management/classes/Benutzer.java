@@ -1,57 +1,51 @@
 package com.smabfws121a.martel.breit.insurance.management.classes;
 
-import com.smabfws121a.martel.breit.insurance.management.data.SQLInterpreter;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
-import java.io.FileNotFoundException;
-import java.sql.SQLException;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
 public class Benutzer {
 
-    private String benutzername;
-    private String passwort;
+    @Id
+    private String username;
+    private String password;
     private String salt;
     private String role;
 
-    public Benutzer(String benutzername, String passwort, String role) {
-        this.benutzername = benutzername;
-        this.passwort = passwort;
+
+    public Benutzer() {}
+
+    public Benutzer(String username, String password, String role) {
+        this.username = username;
+        this.password = password;
         this.role = role;
 
-        // generate salt value for user
         this.salt = BCrypt.gensalt(16);
-
-        // remove plaintext password and replace it with a hashed one
         this.hashPassword();
     }
 
-    // generate hashed password based on the users plaintext password and the generated salt
-    private void hashPassword() {
-        this.passwort = BCrypt.hashpw(this.passwort, this.salt);
-    }
-
-    private void writeUser() throws SQLException, FileNotFoundException, ClassNotFoundException {
-
-    }
-
-    protected boolean isEmployee() {
-        return false;
-    }
-
-    protected boolean isCustomer() {
-        return false;
-    }
-
-    public String getBenutzername() {
-        return this.benutzername;
+    public String getUsername() {
+        return username;
     }
 
     public String getPasswort() {
-        return this.passwort;
+        return this.password;
+    }
+
+    public String getSalt() {
+        return this.salt;
     }
 
     public String getRole() {
         return this.role;
     }
 
+    /**
+     * generate hashed password based on the users plaintext password and the generated salt
+      */
+    private void hashPassword() {
+        this.password = BCrypt.hashpw(this.password, this.salt);
+    }
 }

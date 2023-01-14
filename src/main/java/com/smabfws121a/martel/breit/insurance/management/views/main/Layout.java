@@ -18,13 +18,13 @@ import com.vaadin.flow.router.RouterLink;
 import java.util.Optional;
 
 // layout extends from AppLayout (Vaadin)
-public class layout extends AppLayout {
+public class Layout extends AppLayout {
 
     private final Tabs menu;
     private H1 viewTitle;
 
     // create general static things to show on every view
-    public layout() {
+    public Layout() {
 
         // Use the drawer for the menu
         setPrimarySection(Section.DRAWER);
@@ -56,9 +56,6 @@ public class layout extends AppLayout {
         viewTitle = new H1();
         viewTitle.addClassNames("text-l", "m-m");
         layout.add(viewTitle);
-
-        // A user icon
-        //layout.add(new Image("images/user.svg", "Avatar"));
 
         return layout;
     }
@@ -103,8 +100,9 @@ public class layout extends AppLayout {
     }
 
     private Component[] createMenuItems() {
-        return new Tab[] { createTab("Login", loginView.class),
-                createTab("Startseite", homepageView.class) };
+        return new Tab[] { createTab("Login", LoginView.class),
+                createTab("Startseite", HomepageView.class),
+                createTab("Kunden", CustomerView.class)};
     }
 
     private static Tab createTab(String text,
