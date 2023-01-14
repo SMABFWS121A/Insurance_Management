@@ -13,7 +13,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 @PageTitle("Kunden | ABC Insurance")
-@Route(value = "Kunden", layout = Layout.class)
+@Route(value = "customers", layout = Layout.class)
 public class CustomerView extends VerticalLayout {
     Grid<Customer> grid = new Grid<>(Customer.class);
     TextField filterText = new TextField();
@@ -73,7 +73,7 @@ public class CustomerView extends VerticalLayout {
         grid.addClassNames("customer-grid");
         grid.setSizeFull();
         grid.setColumns("vorname", "nachname", "strasse", "hausnr", "plz", "ort");
-        grid.addColumn(customer -> customer.getVehicleName()).setHeader("Vehicle");
+        grid.addColumn(customer -> customer.getVehicle().getMarke() + " " + customer.getVehicle().getModell()).setHeader("Fahrzeug");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
         grid.asSingleSelect().addValueChangeListener(e -> editCustomer(e.getValue()));

@@ -1,5 +1,6 @@
 package com.smabfws121a.martel.breit.insurance.management.views.main;
 
+import com.smabfws121a.martel.breit.insurance.management.data.classes.Vehicle;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -102,6 +103,7 @@ public class Layout extends AppLayout {
     private Component[] createMenuItems() {
         return new Tab[] { createTab("Login", LoginView.class),
                 createTab("Startseite", HomepageView.class),
+                createTab("Fahrzeuge", VehicleView.class),
                 createTab("Kunden", CustomerView.class)};
     }
 

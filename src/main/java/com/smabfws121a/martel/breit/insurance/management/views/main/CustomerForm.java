@@ -39,7 +39,7 @@ public class CustomerForm extends FormLayout {
         binder.bindInstanceFields(this);
 
         vehicle.setItems(vehicles);
-        vehicle.setItemLabelGenerator(Vehicle::getBezeichnung);
+        vehicle.setItemLabelGenerator(Vehicle::getKennzeichen);
         add(firstName, lastName, strasse, hausnr, plz, ort, createButtonsLayout());
     }
 

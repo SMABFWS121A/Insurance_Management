@@ -47,4 +47,12 @@ public class SqlService {
         return vehicleRepository.findAll();
     }
 
+    public List<Vehicle> findAllVehicles(String filter) {
+        if (filter == null || filter.isEmpty()) {
+            return vehicleRepository.findAll();
+        } else {
+            return vehicleRepository.search(filter);
+        }
+    }
+
 }

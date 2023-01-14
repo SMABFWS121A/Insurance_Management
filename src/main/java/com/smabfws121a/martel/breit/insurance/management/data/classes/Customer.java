@@ -3,11 +3,11 @@ package com.smabfws121a.martel.breit.insurance.management.data.classes;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import net.bytebuddy.dynamic.scaffold.MethodGraph;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 public class Customer extends AbstractEntity {
@@ -21,11 +21,11 @@ public class Customer extends AbstractEntity {
     @NotEmpty
     private String hausnr;
     @NotEmpty
-    private int plz;
+    private String plz;
     @NotEmpty
     private String ort;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "vehicle_id")
     @NotNull
     @JsonIgnoreProperties({"employees"})
@@ -63,11 +63,11 @@ public class Customer extends AbstractEntity {
         this.hausnr = hausnr;
     }
 
-    public int getPlz() {
+    public String getPlz() {
         return plz;
     }
 
-    public void setPlz(int plz) {
+    public void setPlz(String plz) {
         this.plz = plz;
     }
 
@@ -83,11 +83,11 @@ public class Customer extends AbstractEntity {
         return vehicle;
     }
 
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
+    public void setVehicles(Vehicle vehicles) {
+        this.vehicle = vehicles;
     }
 
-    public String getVehicleName() {
-        return vehicle.getBezeichnung();
-    }
+//    public String getVehicleName() {
+//        return vehicle.getMarke() + " " + vehicle.getModell();
+//    }
 }
