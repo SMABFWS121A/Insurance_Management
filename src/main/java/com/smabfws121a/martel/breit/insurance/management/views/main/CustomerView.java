@@ -2,7 +2,9 @@ package com.smabfws121a.martel.breit.insurance.management.views.main;
 
 import com.smabfws121a.martel.breit.insurance.management.data.classes.Kunde;
 import com.smabfws121a.martel.breit.insurance.management.data.service.SqlService;
+import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -31,6 +33,13 @@ public class CustomerView extends VerticalLayout {
 
         add(getToolbar(), getContent());
         updateList();
+        closeEditor();
+    }
+
+    private void closeEditor() {
+        form.setCustomer(null);
+        form.setVisible(false);
+        removeClassName("editing");
     }
 
     private Component getContent() {
@@ -46,13 +55,42 @@ public class CustomerView extends VerticalLayout {
     private void configureForm() {
         form = new CustomerForm(service.findAllVehicles());
         form.setWidth("25em");
+
+        form.addListener(CustomerForm.SaveEvent.class, this::saveCustomer);
+        form.addListener(CustomerForm.DeleteEvent.class, this::deleteCustomer);
+        form.addListener(CustomerForm.CloseEvent.class, e -> closeEditor());
+    }
+
+    private void saveCustomer(CustomerForm.SaveEvent event) {
+        service.saveCustomer(event.getCustomer());
+        updateList();
+        closeEditor();
+    }
+
+    private void deleteCustomer(CustomerForm.DeleteEvent event) {
+        service.deleteCustomer(event.getCustomer());
+        updateList();
+        closeEditor();
     }
 
     private void configureGrid() {
         grid.addClassNames("customer-grid");
         grid.setSizeFull();
-        grid.setColumns("kdnr", "vorname", "nachname", "strasse", "hausnr", "plz", "ort");
+        grid.setColumns("vorname", "nachname", "strasse", "hausnr", "plz", "ort");
+        grid.addColumn(customer -> customer.getVehicleName()).setHeader("Fahrzeug");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
+
+        grid.asSingleSelect().addValueChangeListener(e -> editCustomer(e.getValue()));
+    }
+
+    private void editCustomer(Kunde customer) {
+        if (customer == null) {
+            closeEditor();
+        } else {
+            form.setCustomer(customer);
+            form.setVisible(true);
+            form.addClassName("editing");
+        }
     }
 
     private HorizontalLayout getToolbar() {
@@ -62,10 +100,16 @@ public class CustomerView extends VerticalLayout {
         filterText.addValueChangeListener(e -> updateList());
 
         Button addCustomerButton = new Button("Kunden hinzufügen");
+        addCustomerButton.addClickListener(e -> addCustomer());
 
         HorizontalLayout toolbar = new HorizontalLayout(filterText, addCustomerButton);
         toolbar.addClassName("toolbar");
         return toolbar;
+    }
+
+    private void addCustomer() {
+        grid.asSingleSelect().clear();
+        editCustomer(new Kunde());
     }
 
     private void updateList() {

@@ -18,11 +18,6 @@ public class Fahrzeug extends AbstractEntity {
     private String modell;
     @NotEmpty
     private String versicherungsart;
-    @ManyToOne
-    @JoinColumn(name = "vehicle_id")
-    @NotNull
-    @JsonIgnoreProperties({"employees"})
-    private Kunde halter;
 
     public String getKennzeichen() {
         return kennzeichen;
@@ -54,14 +49,6 @@ public class Fahrzeug extends AbstractEntity {
 
     public void setVersicherungsart(String versicherungsart) {
         this.versicherungsart = versicherungsart;
-    }
-
-    public Kunde getHalter() {
-        return halter;
-    }
-
-    public void setHalter(Kunde halter) {
-        this.halter = halter;
     }
 
     public String getBezeichnung() {
