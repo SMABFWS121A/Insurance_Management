@@ -1,7 +1,5 @@
 package com.smabfws121a.martel.breit.insurance.management.data;
 
-import com.smabfws121a.martel.breit.insurance.management.classes.Benutzer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.jdbc.core.JdbcTemplate;

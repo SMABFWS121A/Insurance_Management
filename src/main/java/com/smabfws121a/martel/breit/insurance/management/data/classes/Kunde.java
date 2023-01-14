@@ -1,4 +1,4 @@
-package com.smabfws121a.martel.breit.insurance.management.classes;
+package com.smabfws121a.martel.breit.insurance.management.data.classes;
 
 import javax.persistence.Entity;
 import javax.validation.constraints.NotEmpty;

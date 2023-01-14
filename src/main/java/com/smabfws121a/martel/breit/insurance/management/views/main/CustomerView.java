@@ -1,7 +1,7 @@
 package com.smabfws121a.martel.breit.insurance.management.views.main;
 
-import com.smabfws121a.martel.breit.insurance.management.classes.Kunde;
-import com.smabfws121a.martel.breit.insurance.management.service.SqlService;
+import com.smabfws121a.martel.breit.insurance.management.data.classes.Kunde;
+import com.smabfws121a.martel.breit.insurance.management.data.service.SqlService;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
@@ -12,7 +12,7 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import java.util.Collections;
+import java.util.Collection;
 
 @PageTitle("Kunden | ABC Insurance")
 @Route(value = "Kunden", layout = Layout.class)
@@ -23,6 +23,7 @@ public class CustomerView extends VerticalLayout {
     SqlService service;
 
     public CustomerView(SqlService service) {
+        this.service = service;
         addClassName("customer-view");
         setSizeFull();
         configureGrid();
@@ -43,7 +44,7 @@ public class CustomerView extends VerticalLayout {
     }
 
     private void configureForm() {
-        form = new CustomerForm();
+        form = new CustomerForm(service.findAllVehicles());
         form.setWidth("25em");
     }
 

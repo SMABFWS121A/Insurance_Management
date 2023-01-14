@@ -1,11 +1,13 @@
-package com.smabfws121a.martel.breit.insurance.management.repository;
+package com.smabfws121a.martel.breit.insurance.management.data.repository;
 
-import com.smabfws121a.martel.breit.insurance.management.classes.Kunde;
+import com.smabfws121a.martel.breit.insurance.management.data.classes.Kunde;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 
 public interface CustomerRepository extends JpaRepository<Kunde, Long> {
 

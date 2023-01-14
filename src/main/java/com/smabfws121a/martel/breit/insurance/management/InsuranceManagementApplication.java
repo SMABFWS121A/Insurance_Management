@@ -1,18 +1,12 @@
 package com.smabfws121a.martel.breit.insurance.management;
 
-//import com.smabfws121a.martel.breit.insurance.management.data.ConnectDatabase;
-import com.smabfws121a.martel.breit.insurance.management.classes.Benutzer;
-import com.smabfws121a.martel.breit.insurance.management.data.SQLWorker;
 import com.vaadin.flow.component.dependency.NpmPackage;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.io.FileNotFoundException;
-import java.sql.SQLException;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * The entry point of the Spring Boot application.
@@ -30,16 +24,7 @@ public class InsuranceManagementApplication implements AppShellConfigurator {
     public InsuranceManagementApplication() {
     }
 
-    public static void main(String[] args) throws SQLException, FileNotFoundException, ClassNotFoundException {
+    public static void main(String[] args) {
         SpringApplication.run(InsuranceManagementApplication.class, args);
-
-        // create connection to database
-//        new ConnectDatabase();
-
-        // create SQLWorker
-        SQLWorker sql = new SQLWorker();
-        Benutzer user = new Benutzer("Max Mustermann", "passwort", "Kunde");
-
-//        sql.writeUser(user);
     }
 }
