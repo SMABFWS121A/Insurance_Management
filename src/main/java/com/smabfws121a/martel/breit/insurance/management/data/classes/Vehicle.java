@@ -1,28 +1,18 @@
 package com.smabfws121a.martel.breit.insurance.management.data.classes;
 
-import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Vehicle extends AbstractEntity {
 
     @NotEmpty
-    private String kennzeichen;
-    @NotEmpty
     private String marke;
     @NotEmpty
     private String modell;
-    @NotEmpty
-    private String versicherungsart;
-
-    public String getKennzeichen() {
-        return kennzeichen;
-    }
-
-    public void setKennzeichen(String kennzeichen) {
-        this.kennzeichen = kennzeichen;
-    }
+    @NotNull
+    private String baujahr;
 
     public String getMarke() {
         return marke;
@@ -40,11 +30,11 @@ public class Vehicle extends AbstractEntity {
         this.modell = modell;
     }
 
-    public String getVersicherungsart() {
-        return versicherungsart;
+    public String getBaujahr() {
+        return baujahr;
     }
 
-    public void setVersicherungsart(String versicherungsart) {
-        this.versicherungsart = versicherungsart;
+    public void setBaujahr(String baujahr) {
+        this.baujahr = baujahr;
     }
 }

@@ -49,7 +49,7 @@ public class CustomerView extends VerticalLayout {
     }
 
     private void configureForm() {
-        form = new CustomerForm(service.findAllVehicles());
+        form = new CustomerForm(service.findAllVehicles(), service.findAllInsuranceTypes(), service.findAllRegistrationPlates());
         form.setWidth("25em");
 
         form.addListener(CustomerForm.SaveEvent.class, this::saveCustomer);
@@ -73,7 +73,9 @@ public class CustomerView extends VerticalLayout {
         grid.addClassNames("customer-grid");
         grid.setSizeFull();
         grid.setColumns("vorname", "nachname", "strasse", "hausnr", "plz", "ort");
-        grid.addColumn(customer -> customer.getVehicle().getMarke() + " " + customer.getVehicle().getModell()).setHeader("Fahrzeug");
+        grid.addColumn(customer -> customer.getVehicle().getMarke() + " " +
+                customer.getVehicle().getModell() + " (" + customer.getRegistrationPlate().getRegistrationPlate() + ")").setHeader("Fahrzeug");
+        grid.addColumn(insurance -> insurance.getInsuranceType().getInsuranceType()).setHeader("Versicherungsart");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
         grid.asSingleSelect().addValueChangeListener(e -> editCustomer(e.getValue()));
@@ -90,7 +92,7 @@ public class CustomerView extends VerticalLayout {
     }
 
     private HorizontalLayout getToolbar() {
-        filterText.setPlaceholder("Nach Namen filtern...");
+        filterText.setPlaceholder("Nach Kunden filtern...");
         filterText.setClearButtonVisible(true);
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
         filterText.addValueChangeListener(e -> updateList());

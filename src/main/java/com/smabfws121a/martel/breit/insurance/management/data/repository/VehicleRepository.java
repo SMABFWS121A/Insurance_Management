@@ -12,8 +12,9 @@ import java.util.List;
 public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
 
     @Query("select v from Vehicle v " +
-            "where lower(v.marke) like lower(concat('%', :searchTerm, '%')) " +
-            "or lower(v.modell) like lower(concat('%', :searchTerm, '%'))")
+            "where lower(v.marke) like lower(concat('%', :searchTerm, '%'))" +
+            "or lower(v.modell) like lower(concat('%', :searchTerm, '%'))" +
+            "or lower(v.baujahr) like lower((concat('%', :searchTerm, '%')))")
     List<Vehicle> search(@Param("searchTerm") String searchTerm);
 
 }

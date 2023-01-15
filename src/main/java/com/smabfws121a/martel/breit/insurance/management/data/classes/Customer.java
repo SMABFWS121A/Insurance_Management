@@ -1,13 +1,10 @@
 package com.smabfws121a.martel.breit.insurance.management.data.classes;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import net.bytebuddy.dynamic.scaffold.MethodGraph;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.LinkedList;
-import java.util.List;
 
 @Entity
 public class Customer extends AbstractEntity {
@@ -24,12 +21,19 @@ public class Customer extends AbstractEntity {
     private String plz;
     @NotEmpty
     private String ort;
-
     @OneToOne
     @JoinColumn(name = "vehicle_id")
     @NotNull
     @JsonIgnoreProperties({"employees"})
     private Vehicle vehicle;
+    @OneToOne
+    @JoinColumn(name = "registration_plate_id")
+    @NotNull
+    private RegistrationPlate registrationPlate;
+    @ManyToOne
+    @JoinColumn(name = "insurance_type_id")
+    @NotNull
+    private InsuranceType insuranceType;
 
     public String getVorname() {
         return vorname;
@@ -83,11 +87,27 @@ public class Customer extends AbstractEntity {
         return vehicle;
     }
 
-    public void setVehicles(Vehicle vehicles) {
+    public void setVehicle(Vehicle vehicles) {
         this.vehicle = vehicles;
     }
 
-//    public String getVehicleName() {
-//        return vehicle.getMarke() + " " + vehicle.getModell();
-//    }
+    public RegistrationPlate getRegistrationPlate() {
+        return registrationPlate;
+    }
+
+    public void setRegistrationPlate(RegistrationPlate registrationPlate) {
+        this.registrationPlate = registrationPlate;
+    }
+
+    public Long getRegistrationPlateId() {
+        return registrationPlate.getId();
+    }
+
+    public InsuranceType getInsuranceType() {
+        return insuranceType;
+    }
+
+    public void setInsuranceType(InsuranceType insuranceType) {
+        this.insuranceType = insuranceType;
+    }
 }

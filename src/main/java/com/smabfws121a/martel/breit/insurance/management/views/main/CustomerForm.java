@@ -1,5 +1,7 @@
 package com.smabfws121a.martel.breit.insurance.management.views.main;
 
+import com.smabfws121a.martel.breit.insurance.management.data.classes.InsuranceType;
+import com.smabfws121a.martel.breit.insurance.management.data.classes.RegistrationPlate;
 import com.smabfws121a.martel.breit.insurance.management.data.classes.Vehicle;
 import com.smabfws121a.martel.breit.insurance.management.data.classes.Customer;
 import com.vaadin.flow.component.ComponentEvent;
@@ -21,26 +23,35 @@ import java.util.List;
 public class CustomerForm extends FormLayout {
 
     Binder<Customer> binder = new BeanValidationBinder<>(Customer.class);
-    TextField firstName = new TextField("Vorname");
-    TextField lastName = new TextField("Nachname");
+    TextField vorname = new TextField("Vorname");
+    TextField nachname = new TextField("Nachname");
     TextField strasse = new TextField("Straße");
     TextField hausnr = new TextField("Hausnummer");
     TextField plz = new TextField("PLZ");
     TextField ort = new TextField("Ort");
-    ComboBox<Vehicle> vehicle = new ComboBox<>("Vehicle");
+    ComboBox<RegistrationPlate> registrationPlate = new ComboBox<>("Kennzeichen");
+    ComboBox<Vehicle> vehicle = new ComboBox<>("Fahrzeug");
+    ComboBox<InsuranceType> insuranceType = new ComboBox<>("Versicherungsart");
 
     Button save = new Button("Speichern");
     Button delete = new Button("Löschen");
     Button close = new Button("Abbrechen");
     private Customer customer;
 
-    public CustomerForm(List<Vehicle> vehicles) {
+    public CustomerForm(List<Vehicle> vehicles, List<InsuranceType> insuranceTypes, List<RegistrationPlate> registrationPlates) {
         addClassName("contact-form");
         binder.bindInstanceFields(this);
 
         vehicle.setItems(vehicles);
-        vehicle.setItemLabelGenerator(Vehicle::getKennzeichen);
-        add(firstName, lastName, strasse, hausnr, plz, ort, createButtonsLayout());
+        vehicle.setItemLabelGenerator(vehicle -> vehicle.getMarke() + " " + vehicle.getModell());
+
+        registrationPlate.setItems(registrationPlates);
+        registrationPlate.setItemLabelGenerator(RegistrationPlate::getRegistrationPlate);
+
+        insuranceType.setItems(insuranceTypes);
+        insuranceType.setItemLabelGenerator(InsuranceType::getInsuranceType);
+
+        add(vorname, nachname, strasse, hausnr, plz, ort, vehicle, registrationPlate, insuranceType, createButtonsLayout());
     }
 
     public void setCustomer(Customer customer) {
@@ -73,10 +84,10 @@ public class CustomerForm extends FormLayout {
     }
 
     // Events
-    public static abstract class ContactFormEvent extends ComponentEvent<CustomerForm> {
+    public static abstract class CustomerFormEvent extends ComponentEvent<CustomerForm> {
         private Customer customer;
 
-        protected ContactFormEvent(CustomerForm source, Customer customer) {
+        protected CustomerFormEvent(CustomerForm source, Customer customer) {
             super(source, false);
             this.customer = customer;
         }
@@ -86,20 +97,20 @@ public class CustomerForm extends FormLayout {
         }
     }
 
-    public static class SaveEvent extends ContactFormEvent {
+    public static class SaveEvent extends CustomerFormEvent {
         SaveEvent(CustomerForm source, Customer customer) {
             super(source, customer);
         }
     }
 
-    public static class DeleteEvent extends ContactFormEvent {
+    public static class DeleteEvent extends CustomerFormEvent {
         DeleteEvent(CustomerForm source, Customer customer) {
             super(source, customer);
         }
 
     }
 
-    public static class CloseEvent extends ContactFormEvent {
+    public static class CloseEvent extends CustomerFormEvent {
         CloseEvent(CustomerForm source) {
             super(source, null);
         }
