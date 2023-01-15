@@ -27,7 +27,7 @@ public class VehicleForm extends FormLayout {
     private Vehicle vehicle;
 
     public VehicleForm() {
-        addClassName("contact-form");
+        addClassName("vehicle-form");
         binder.bindInstanceFields(this);
 
         add(marke, modell, baujahr, createButtonsLayout());

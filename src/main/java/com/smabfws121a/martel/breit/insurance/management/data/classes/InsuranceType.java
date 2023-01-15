@@ -1,14 +1,12 @@
 package com.smabfws121a.martel.breit.insurance.management.data.classes;
 
-import javax.annotation.Nullable;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class InsuranceType extends AbstractEntity {
 
-//    @NotEmpty
-    @Nullable
+    @NotEmpty
     private String insuranceType;
 
     public String getInsuranceType() {

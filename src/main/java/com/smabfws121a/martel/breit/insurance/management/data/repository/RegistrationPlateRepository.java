@@ -4,7 +4,4 @@ import com.smabfws121a.martel.breit.insurance.management.data.classes.Registrati
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RegistrationPlateRepository extends JpaRepository<RegistrationPlate, Long> {
-
-
-
 }

@@ -39,7 +39,7 @@ public class CustomerForm extends FormLayout {
     private Customer customer;
 
     public CustomerForm(List<Vehicle> vehicles, List<InsuranceType> insuranceTypes, List<RegistrationPlate> registrationPlates) {
-        addClassName("contact-form");
+        addClassName("customer-form");
         binder.bindInstanceFields(this);
 
         vehicle.setItems(vehicles);

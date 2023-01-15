@@ -50,7 +50,7 @@ public class CustomerView extends VerticalLayout {
 
     private void configureForm() {
         form = new CustomerForm(service.findAllVehicles(), service.findAllInsuranceTypes(), service.findAllRegistrationPlates());
-        form.setWidth("25em");
+        form.setWidth("30em");
 
         form.addListener(CustomerForm.SaveEvent.class, this::saveCustomer);
         form.addListener(CustomerForm.DeleteEvent.class, this::deleteCustomer);

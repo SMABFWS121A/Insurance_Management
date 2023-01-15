@@ -20,7 +20,8 @@ public class SqlService {
     private final InsuranceTypeRepository insuranceTypeRepository;
     private final RegistrationPlateRepository registrationPlateRepository;
 
-    public SqlService(CustomerRepository customerRepository, VehicleRepository vehicleRepository, InsuranceTypeRepository insuranceTypeRepository, RegistrationPlateRepository registrationPlateRepository) {
+    public SqlService(CustomerRepository customerRepository, VehicleRepository vehicleRepository,
+                      InsuranceTypeRepository insuranceTypeRepository, RegistrationPlateRepository registrationPlateRepository) {
         this.customerRepository = customerRepository;
         this.vehicleRepository = vehicleRepository;
         this.insuranceTypeRepository = insuranceTypeRepository;
@@ -82,12 +83,4 @@ public class SqlService {
     public List<RegistrationPlate> findAllRegistrationPlates() {
         return registrationPlateRepository.findAll();
     }
-
-//    public RegistrationPlate getRegistrationPlate() {
-//        return registrationPlate;
-//    }
-//
-//    public String getRegistrationPlateString() {
-//        return registrationPlate.getRegistrationPlate();
-//    }
 }

@@ -1,6 +1,5 @@
 package com.smabfws121a.martel.breit.insurance.management.views.main;
 
-import com.smabfws121a.martel.breit.insurance.management.data.classes.Customer;
 import com.smabfws121a.martel.breit.insurance.management.data.classes.Vehicle;
 import com.smabfws121a.martel.breit.insurance.management.data.service.SqlService;
 import com.vaadin.flow.component.Component;
@@ -51,7 +50,7 @@ public class VehicleView extends VerticalLayout {
 
     private void configureForm() {
         form = new VehicleForm();
-        form.setWidth("25em");
+        form.setWidth("30em");
 
         form.addListener(VehicleForm.SaveEvent.class, this::saveVehicle);
         form.addListener(VehicleForm.DeleteEvent.class, this::deleteVehicle);

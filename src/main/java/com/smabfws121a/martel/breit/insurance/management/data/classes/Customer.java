@@ -99,10 +99,6 @@ public class Customer extends AbstractEntity {
         this.registrationPlate = registrationPlate;
     }
 
-    public Long getRegistrationPlateId() {
-        return registrationPlate.getId();
-    }
-
     public InsuranceType getInsuranceType() {
         return insuranceType;
     }
